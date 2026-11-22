@@ -1,0 +1,65 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Caspian",
+  "colors": {
+    "primary": "#3785f0",
+    "light": "#6fe3d6",
+    "dark": "#006be0"
+  },
+  "favicon": "/favicon.svg",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg",
+    "href": "https://getcaspian.io"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Welcome",
+        "pages": ["index"]
+      },
+      {
+        "group": "Getting started",
+        "pages": ["getting-started/connect-identity-provider"]
+      },
+      {
+        "group": "Integrations",
+        "pages": ["integrations/overview", "integrations/hibob"]
+      },
+      {
+        "group": "Access",
+        "pages": ["access/overview"]
+      },
+      {
+        "group": "Devices",
+        "pages": ["devices/overview"]
+      },
+      {
+        "group": "Spend",
+        "pages": ["spend/overview"]
+      },
+      {
+        "group": "Security & privacy",
+        "pages": ["security/overview"]
+      }
+    ]
+  },
+  "navbar": {
+    "links": [
+      { "label": "Support", "href": "mailto:support@getcaspian.io" },
+      { "label": "Trust", "href": "https://trust.getcaspian.io" }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Open Caspian",
+      "href": "https://app.getcaspian.io"
+    }
+  },
+  "footer": {
+    "socials": {
+      "linkedin": "https://www.linkedin.com/company/caspian-io",
+      "website": "https://getcaspian.io"
+    }
+  }
+}
