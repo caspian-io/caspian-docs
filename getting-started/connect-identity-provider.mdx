@@ -1,0 +1,25 @@
+---
+title: "Connect your identity provider"
+description: "Create a workspace and connect Microsoft Entra ID, Google Workspace or Okta."
+---
+
+Caspian starts from your company directory. Sign in at [app.getcaspian.io](https://app.getcaspian.io), create a workspace, and connect the identity provider your company uses. Caspian supports three: Microsoft Entra ID, Google Workspace and Okta. Each one has a Connect button during setup, and the same choice is available later under Integrations.
+
+## Before you start
+
+Connect with an account that is allowed to grant the access Caspian asks for. Caspian only reads from the provider.
+
+- **Google Workspace:** read access to users, groups and the list of apps used in the company. The Google Admin privileges are Users > Read, Groups > Read, and Reports or Security > User Security Management.
+- **Microsoft Entra ID:** admin consent for Directory.Read.All (read users and groups) and Application.Read.All (read apps).
+- **Okta:** an API Services app with read-only scopes and the Read-Only Administrator role.
+
+## Okta steps
+
+1. In Caspian, open Integrations, choose Okta and enter your Okta domain, such as acme.okta.com.
+2. In the Okta Admin Console, create an API Services app named Caspian.
+3. Grant the read scopes listed in Caspian and assign the Read-Only Administrator role.
+4. Copy the client ID and client secret into Caspian and choose Connect.
+
+Caspian checks the app at once and starts the first sync. For Google Workspace and Entra ID, choose Connect and approve the consent screen.
+
+If a connection stops working, the provider row shows Reconnect.
