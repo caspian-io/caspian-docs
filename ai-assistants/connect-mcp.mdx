@@ -1,0 +1,199 @@
+---
+title: "Connect Claude, ChatGPT and other AI assistants"
+description: "Add Caspian as a remote MCP server in Claude, Claude Code, ChatGPT, Codex, Cursor or VS Code, and ask about your people, apps, access and Macs."
+---
+
+*Updated 27 November 2026.*
+
+## Overview
+
+Caspian is a remote MCP server. Add it to an AI assistant and ask about your company's people, apps, access and Macs in plain words. The assistant acts as you, in one Caspian workspace, with your Caspian role. It never gets more than that role allows.
+
+Server URL:
+
+```text
+https://app.getcaspian.io/mcp
+```
+
+The URL is an address, not a secret. Every assistant that connects is sent through a Caspian sign-in first. You never need an API key, a client ID or a client secret.
+
+## Before you start
+
+- A Caspian workspace at [app.getcaspian.io](https://app.getcaspian.io) and a sign-in for it.
+- On a Claude Team or Enterprise plan, an Owner adds the connector once for the organization. Each person then signs in with their own Caspian account.
+- In Caspian, **Settings → MCP** shows the same steps with the URL filled in, and lists the assistants that are signed in for you.
+
+## Add Caspian to your assistant
+
+<Tabs>
+  <Tab title="Claude">
+    This covers claude.ai, Claude Desktop and the Claude mobile apps. They share one list of connectors.
+
+    <Steps>
+      <Step title="Open Connectors">
+        In Claude, go to **Customize → Connectors**, click **+ Add**, then **Add custom connector**.
+      </Step>
+      <Step title="Enter the URL">
+        Name it **Caspian** and paste `https://app.getcaspian.io/mcp`. Click **Continue**.
+      </Step>
+      <Step title="Keep the defaults and connect">
+        Keep **Sign in now** and **Use Claude's published identity**, then click **Connect**. Leave the OAuth client ID and secret empty.
+      </Step>
+      <Step title="Sign in to Caspian">
+        Sign in in the browser window that opens, with the same claude.ai account you use in Claude.
+      </Step>
+    </Steps>
+
+    No **+ Add** button? On Team or Enterprise, an Owner adds Caspian first under **Organization settings → Connectors → Add → Custom → Web**. Members then open **Customize → Connectors** and click **Connect**. Claude Desktop that runs through a company LLM gateway cannot add custom connectors. The Free plan allows one custom connector.
+
+    Claude asks before it uses each Caspian tool the first time. To skip that for reads, open **Customize → Connectors → Caspian** and set read-only tools to **Always allow**.
+  </Tab>
+  <Tab title="Claude Code">
+    Run these two commands. The first adds Caspian to every project, the second signs you in.
+
+    ```bash
+    claude mcp add --transport http caspian https://app.getcaspian.io/mcp --scope user
+    claude mcp login caspian
+    ```
+
+    On Claude Code before 2.1.186, run `/mcp` instead of the second command, pick **caspian** and choose **Authenticate**.
+  </Tab>
+  <Tab title="ChatGPT">
+    You need a paid ChatGPT plan. On Business, Enterprise and Edu, an admin may need to allow custom MCP servers first.
+
+    <Steps>
+      <Step title="Open Plugins">
+        In ChatGPT on the web, open **Settings → Plugins** (on older accounts: **Apps**), or go to chatgpt.com/plugins.
+      </Step>
+      <Step title="Add a custom MCP server">
+        Click **Add**, then **Add custom MCP server**. Name it **Caspian**, paste `https://app.getcaspian.io/mcp` and choose **OAuth**. Leave the client ID and secret empty.
+      </Step>
+      <Step title="Create and connect">
+        Tick the box that says you understand, click **Create as plugin**, then **Connect Caspian**. Sign in to Caspian and click **Allow**.
+      </Step>
+      <Step title="Use it">
+        Click **Try in chat** on the plugin page, or type **@Caspian** in a new chat.
+      </Step>
+    </Steps>
+
+    ChatGPT moves these settings often, so the names may differ.
+  </Tab>
+  <Tab title="Codex">
+    Run this command. Codex opens the browser to sign you in.
+
+    ```bash
+    codex mcp add caspian --url https://app.getcaspian.io/mcp
+    ```
+
+    If Codex says it could not tell whether Caspian needs a sign-in, run `codex mcp login caspian`.
+  </Tab>
+  <Tab title="Cursor">
+    In Caspian, open **Settings → MCP**, pick **Cursor** and click the install button. Cursor opens with Caspian filled in. Click **Install**, then **Authenticate** on the Caspian entry, and sign in.
+
+    Or add it by hand to `~/.cursor/mcp.json`:
+
+    ```json
+    {
+      "mcpServers": {
+        "caspian": { "url": "https://app.getcaspian.io/mcp" }
+      }
+    }
+    ```
+  </Tab>
+  <Tab title="VS Code">
+    Run this in a terminal, then start the server in VS Code and sign in to Caspian.
+
+    ```bash
+    code --add-mcp '{"name":"caspian","type":"http","url":"https://app.getcaspian.io/mcp"}'
+    ```
+
+    Or add it to `.vscode/mcp.json`:
+
+    ```json
+    {
+      "servers": {
+        "caspian": { "type": "http", "url": "https://app.getcaspian.io/mcp" }
+      }
+    }
+    ```
+
+    GitHub Copilot uses Caspian in Agent mode, so sign in to Copilot first (Copilot Free works).
+  </Tab>
+</Tabs>
+
+Caspian's **Settings → MCP** page also has steps for Windsurf, Zed, GitHub Copilot CLI, opencode, Goose, Junie, Kiro and Antigravity. Any other client that supports remote MCP servers with OAuth works with the same URL.
+
+## Choose a workspace
+
+If you belong to more than one Caspian workspace, the assistant asks which one to use. Say the name, or ask it to switch later. Each call runs in one workspace.
+
+## What you can ask
+
+- Which Macs have FileVault or the firewall turned off?
+- What does a colleague have access to, and which of it have they not used in 90 days?
+- Which apps have people signed up for that nobody assigned?
+- Which apps in our workspace have no owner?
+- List open policy violations and say which one to fix first.
+
+## Reads, changes and approvals
+
+- **Reads** run straight away. They change nothing.
+- **Changes**, such as removing an account, are described first. The assistant runs them only after you agree in the conversation. Removals ask for a second confirmation.
+- **Gated actions** that need an admin's approval are created as proposals in Caspian. They run once someone approves them in the app, not in the conversation.
+- **Connecting a source or storing a credential** happens in the Caspian app only. The assistant names the page to open and never asks you for a secret.
+
+A new connection lists a few core read tools and a search tool, **Find Caspian tools**. Every other Caspian tool is found by search and runs through one of three tools: one for reads, one for changes, one for removals. Every tool has a title and says whether it only reads or changes data.
+
+## Scopes
+
+| Scope | What it allows |
+| --- | --- |
+| `caspian:read` | Read apps, people, access, vendors, devices, policy violations and workflows. Nothing changes. |
+| `caspian:write` | Make the changes your Caspian role allows, after you agree in the conversation. |
+
+Caspian signs you in with OAuth 2.1 and PKCE. Assistants register themselves, so nobody has to create an OAuth client.
+
+## What Caspian shares
+
+Caspian sends the assistant only the workspace data a tool call asks for, such as names of people, apps, accounts and devices. Caspian does not read your conversations with the assistant. The assistant's provider handles the conversation under its own privacy policy. See Caspian's [privacy policy](https://getcaspian.io/privacy), [terms](https://getcaspian.io/terms) and [Security & privacy](/security/overview).
+
+## Disconnect
+
+| Assistant | How |
+| --- | --- |
+| Claude | **Settings → Connectors → Caspian → Disconnect** |
+| Claude Code | `claude mcp remove caspian` |
+| ChatGPT | **Settings → Plugins → Caspian**, then disconnect or delete it |
+| Codex | `codex mcp logout caspian`, then `codex mcp remove caspian` |
+| Cursor | **Settings → Tools & Integrations → MCP Tools → Caspian → Remove** |
+| VS Code | Remove `caspian` from your `mcp.json`, then save |
+
+In Caspian, **Settings → MCP** lists the assistants signed in for you, and you can disconnect each one there.
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The assistant asks for an OAuth client ID">
+    Leave the client ID and secret empty and let the assistant register itself. If it still insists, write to [support@getcaspian.io](mailto:support@getcaspian.io). Do not create an OAuth client yourself.
+  </Accordion>
+  <Accordion title="Claude shows Account mismatch">
+    You signed in to Caspian in a browser that uses another claude.ai account. Sign in to claude.ai in that browser with the same account as in Claude, then connect again.
+  </Accordion>
+  <Accordion title="Codex asks for more permissions than it needs">
+    Sign in again with only the scopes Caspian needs:
+
+    ```bash
+    codex mcp login caspian --scopes openid,profile,email,offline_access
+    ```
+  </Accordion>
+  <Accordion title="The assistant says no workspace is selected">
+    Nothing ran. Tell the assistant which workspace to use, by name.
+  </Accordion>
+  <Accordion title="A change was refused">
+    Your Caspian role does not allow that change. Ask a Caspian owner or admin. The assistant does not retry with other rights.
+  </Accordion>
+</AccordionGroup>
+
+## Support
+
+Write to [support@getcaspian.io](mailto:support@getcaspian.io).

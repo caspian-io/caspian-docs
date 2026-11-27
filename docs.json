@@ -40,6 +40,10 @@
         "pages": ["spend/overview"]
       },
       {
+        "group": "AI assistants",
+        "pages": ["ai-assistants/connect-mcp"]
+      },
+      {
         "group": "Security & privacy",
         "pages": ["security/overview"]
       }
